@@ -1,64 +1,76 @@
 package entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
     private double price;
 
-    // Constructeur sans arguments
+    // Relation ManyToOne
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    // Constructeurs
     public Product() {}
 
-    // Constructeur avec paramètres
     public Product(String name, double price) {
         this.name = name;
         this.price = price;
     }
 
-    // Getter pour id
+    public Product(String name, double price, Category category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+    // Getters et Setters
     public int getId() {
         return id;
     }
 
-    // Setter pour id
     public void setId(int id) {
         this.id = id;
     }
 
-    // Getter pour name
     public String getName() {
         return name;
     }
 
-    // Setter pour name
     public void setName(String name) {
         this.name = name;
     }
 
-    // Getter pour price
     public double getPrice() {
         return price;
     }
 
-    // Setter pour price
     public void setPrice(double price) {
         this.price = price;
     }
 
-    // Méthode toString pour faciliter l'affichage
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    // Méthode toString
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", category=" + (category != null ? category.getName() : "aucune") +
                 '}';
     }
 }

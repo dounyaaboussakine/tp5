@@ -48,4 +48,7 @@ public class ProductDaoImpl implements IDao<Product> {
                 .createQuery("from Product", Product.class)
                 .list();
     }
+
+    public void save(Product p) {
+    }
 }
